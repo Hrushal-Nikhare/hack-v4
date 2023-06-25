@@ -1,0 +1,51 @@
+---
+import { Image } from "@astrojs/image/components";
+const images = await Astro.glob("../Images/*.jpg");
+import "@splidejs/splide/css";
+var lmao = 0;
+---
+
+<style is:global>
+  .hmm {
+    text-align: center;
+  }
+  .splide__slide {
+    padding: 32px;
+  }
+</style>
+
+<div class="splide">
+  <div class="splide__track">
+    <ul class="splide__list">
+      {
+        images.map((image) => (
+          <li class="splide__slide">
+            <img data-splide-lazy={image.default.src} alt="Image description" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+</div>
+<div class="hmm">
+  The January 2023 Epoch Hackathon in New Delhi utilized CC BY 4.0 licensed
+  images.
+</div>
+
+<script>
+  import { Splide } from "@splidejs/splide";
+  import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+  var splide = new Splide(".splide", {
+    lazyLoad: 'sequential',
+    type: "loop",
+    arrows: false,
+    pagination: false,
+    autoScroll: {
+      speed: 2,
+      pauseOnHover : false,
+      pauseOnFocus : false,
+    },
+  });
+  splide.mount({ AutoScroll });
+</script>
